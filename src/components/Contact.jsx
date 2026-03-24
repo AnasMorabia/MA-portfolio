@@ -48,9 +48,9 @@ export default function Contact() {
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6, delay: 0.2 }}
         >
-          <GridPatternCardBody className="p-8 md:p-10">
+          <GridPatternCardBody className="p-4 sm:p-6 md:p-8">
             {/* Social links */}
-            <div className="flex justify-center gap-3 mb-10">
+            <div className="flex flex-wrap justify-center gap-3 mb-10">
               <a
                 href={`mailto:${personalInfo.email}`}
                 className="flex items-center gap-2 px-5 py-2.5 bg-white/10 text-white/80 rounded-md text-sm border border-white/15 hover:bg-white/15 transition-colors font-mono"

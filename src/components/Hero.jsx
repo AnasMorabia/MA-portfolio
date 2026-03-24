@@ -1,8 +1,13 @@
-import { useEffect } from "react";
+import { useEffect, useMemo } from "react";
 import { motion } from "framer-motion";
 import { personalInfo } from "../data/content";
 
 export default function Hero() {
+  const barHeights = useMemo(
+    () => Array.from({ length: 8 }, () => Math.random() * 12 + 4),
+    []
+  );
+
   useEffect(() => {
     const embedScript = document.createElement("script");
     embedScript.type = "text/javascript";
@@ -64,9 +69,6 @@ export default function Hero() {
             title.includes("unicorn") ||
             href.includes("unicorn.studio")
           ) {
-            el.style.display = "none";
-            el.style.visibility = "hidden";
-            el.style.opacity = "0";
             try {
               el.remove();
             } catch (_) {}
@@ -75,14 +77,13 @@ export default function Hero() {
       });
     };
 
+    // Run once on mount, then a few retries — no interval
     hideBranding();
-    const interval = setInterval(hideBranding, 50);
-    const timeouts = [500, 1000, 2000, 5000, 10000].map((t) =>
+    const timeouts = [500, 1000, 3000, 8000].map((t) =>
       setTimeout(hideBranding, t)
     );
 
     return () => {
-      clearInterval(interval);
       timeouts.forEach(clearTimeout);
       try {
         document.head.removeChild(embedScript);
@@ -124,13 +125,13 @@ export default function Hero() {
         className="relative z-10 flex min-h-screen items-center justify-end pt-16 lg:pt-0"
         style={{ marginTop: "5vh" }}
       >
-        <div className="w-full lg:w-1/2 px-6 lg:px-16 lg:pr-[10%]">
+        <div className="w-full md:w-2/3 lg:w-1/2 px-5 sm:px-6 lg:px-16 lg:pr-[10%]">
           <div className="max-w-lg relative lg:ml-auto">
             {/* Top decorative line */}
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 0.6 }}
-              transition={{ duration: 0.8 }}
+              transition={{ duration: 0.5 }}
               className="flex items-center gap-2 mb-3"
             >
               <div className="w-8 h-px bg-white" />
@@ -146,8 +147,8 @@ export default function Hero() {
               <motion.h1
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.1 }}
-                className="text-2xl lg:text-5xl font-bold text-white mb-3 lg:mb-4 leading-tight font-mono tracking-wider whitespace-nowrap lg:-ml-[5%]"
+                transition={{ duration: 0.4, delay: 0.1 }}
+                className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-3 lg:mb-4 leading-tight font-mono tracking-wider whitespace-nowrap lg:-ml-[5%]"
                 style={{ letterSpacing: "0.1em" }}
               >
                 {personalInfo.name.toUpperCase().split(" ").slice(0, 2).join(" ")}
@@ -158,7 +159,7 @@ export default function Hero() {
             <motion.p
               initial={{ opacity: 0 }}
               animate={{ opacity: 0.5 }}
-              transition={{ duration: 0.6, delay: 0.2 }}
+              transition={{ duration: 0.4, delay: 0.15 }}
               className="text-xs font-mono tracking-[0.25em] uppercase text-white mb-4"
             >
               {personalInfo.title}
@@ -178,10 +179,10 @@ export default function Hero() {
             <motion.div
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.3 }}
+              transition={{ duration: 0.4, delay: 0.2 }}
               className="relative"
             >
-              <p className="text-xs lg:text-base text-gray-300 mb-5 lg:mb-6 leading-relaxed font-mono opacity-80">
+              <p className="text-xs sm:text-sm lg:text-base text-gray-300 mb-5 lg:mb-6 leading-relaxed font-mono opacity-80">
                 {personalInfo.tagline}
               </p>
               <div className="hidden lg:block absolute -left-4 top-1/2 w-3 h-3 border border-white opacity-30 -translate-y-1/2">
@@ -193,7 +194,7 @@ export default function Hero() {
             <motion.div
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.4 }}
+              transition={{ duration: 0.4, delay: 0.25 }}
               className="flex flex-col lg:flex-row gap-3 lg:gap-4"
             >
               <a
@@ -216,7 +217,7 @@ export default function Hero() {
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 0.4 }}
-              transition={{ duration: 0.8, delay: 0.6 }}
+              transition={{ duration: 0.5, delay: 0.3 }}
               className="hidden lg:flex items-center gap-2 mt-6"
             >
               <span className="text-white text-[9px] font-mono">&infin;</span>
@@ -243,7 +244,7 @@ export default function Hero() {
                 <div
                   key={i}
                   className="w-1 bg-white/30"
-                  style={{ height: `${Math.random() * 12 + 4}px` }}
+                  style={{ height: `${barHeights[i]}px` }}
                 />
               ))}
             </div>

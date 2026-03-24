@@ -64,7 +64,8 @@ export default function Navbar() {
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
-            className="md:hidden bg-dark/95 backdrop-blur-xl border-t border-dark-border/50"
+            transition={{ duration: 0.2, ease: "easeOut" }}
+            className="md:hidden bg-dark/95 backdrop-blur-xl border-t border-dark-border/50 overflow-hidden"
           >
             <div className="flex flex-col items-center gap-5 py-8">
               {navLinks.map((link) => (

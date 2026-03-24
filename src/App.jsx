@@ -13,7 +13,7 @@ function App() {
       <Navbar />
       <main>
         <Hero />
-        <div className="max-w-[1000px] mx-auto px-8 sm:px-12 md:px-20 lg:px-24">
+        <div className="max-w-[1000px] mx-auto px-4 sm:px-6 md:px-12 lg:px-16">
           <About />
           <Skills />
           <Projects />

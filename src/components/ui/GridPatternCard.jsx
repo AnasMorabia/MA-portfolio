@@ -21,7 +21,7 @@ export function GridPatternCard({
       )}
       initial={initial || { opacity: 0, y: -20 }}
       animate={animate || { opacity: 1, y: 0 }}
-      transition={transition || { duration: 0.8, ease: "easeOut" }}
+      transition={transition || { duration: 0.4, ease: "easeOut" }}
     >
       <div
         className={cn(

@@ -76,10 +76,11 @@ export default function Skills() {
                 </div>
                 <div className="w-full h-1.5 bg-white/5 rounded-full overflow-hidden">
                   <motion.div
-                    initial={{ width: 0 }}
-                    animate={isInView ? { width: `${skill.level}%` } : {}}
-                    transition={{ duration: 1, delay: 0.3 + 0.05 * i }}
-                    className="h-full bg-gradient-to-r from-white/50 to-white/20 rounded-full"
+                    initial={{ scaleX: 0 }}
+                    animate={isInView ? { scaleX: 1 } : {}}
+                    transition={{ duration: 0.8, delay: 0.2 + 0.03 * i, ease: "easeOut" }}
+                    className="h-full bg-gradient-to-r from-white/50 to-white/20 rounded-full origin-left"
+                    style={{ width: `${skill.level}%` }}
                   />
                 </div>
               </GridPatternCardBody>

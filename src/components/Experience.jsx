@@ -34,9 +34,9 @@ export default function Experience() {
               className="hover:border-white/20 transition-all duration-300"
               initial={{ opacity: 0, y: 30 }}
               animate={isInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.5, delay: 0.2 * i }}
+              transition={{ duration: 0.4, delay: 0.1 * i }}
             >
-              <GridPatternCardBody className="p-6 md:p-8">
+              <GridPatternCardBody className="p-4 sm:p-5 md:p-6">
                 <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between mb-5">
                   <div>
                     <h3 className="text-white font-semibold text-lg font-mono">

@@ -46,14 +46,14 @@ export default function About() {
           </p>
         </motion.div>
 
-        <div className="grid md:grid-cols-3 gap-5">
+        <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-4 sm:gap-5">
           {cards.map((card, i) => (
             <GridPatternCard
               key={card.title}
               className="hover:border-white/20 transition-all duration-300 group"
               initial={{ opacity: 0, y: 30 }}
               animate={isInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.5, delay: 0.15 * (i + 1) }}
+              transition={{ duration: 0.4, delay: 0.1 * (i + 1) }}
             >
               <GridPatternCardBody>
                 <div className="w-12 h-12 bg-white/5 border border-white/10 rounded-lg flex items-center justify-center mb-6 group-hover:bg-white/10 transition-colors">
