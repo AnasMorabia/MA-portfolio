@@ -48,7 +48,12 @@ export default function Hero() {
       [data-us-project] [class*="credit"],
       [data-us-project] [class*="watermark"],
       [data-us-project] a,
-      [data-us-project] div:last-child:not(:first-child) a {
+      [data-us-project] div:last-child:not(:first-child) a,
+      [data-us-project] ~ *,
+      a[href*="unicorn.studio"],
+      a[href*="unicornstudio"],
+      div[style*="bottom"][style*="position"] a,
+      #home a[href*="unicorn"] {
         display: none !important;
         visibility: hidden !important;
         opacity: 0 !important;
@@ -63,6 +68,7 @@ export default function Hero() {
     document.head.appendChild(style);
 
     const hideBranding = () => {
+      // Search inside project containers
       const containers = document.querySelectorAll("[data-us-project]");
       containers.forEach((container) => {
         container.querySelectorAll("*").forEach((el) => {
@@ -76,11 +82,25 @@ export default function Hero() {
             title.includes("unicorn") ||
             href.includes("unicorn.studio")
           ) {
-            try {
-              el.remove();
-            } catch (_) {}
+            try { el.remove(); } catch (_) {}
           }
         });
+      });
+      // Also search globally for any unicorn links/watermarks
+      document.querySelectorAll('a[href*="unicorn"], a[href*="unicornstudio"]').forEach((el) => {
+        try { el.remove(); } catch (_) {}
+      });
+      // Check siblings after the project div
+      containers.forEach((container) => {
+        let sibling = container.nextElementSibling;
+        while (sibling) {
+          const next = sibling.nextElementSibling;
+          const text = (sibling.textContent || "").toLowerCase();
+          if (text.includes("unicorn") || text.includes("made with")) {
+            try { sibling.remove(); } catch (_) {}
+          }
+          sibling = next;
+        }
       });
     };
 
@@ -134,7 +154,7 @@ export default function Hero() {
         />
       </div>
       {/* Cover watermark at bottom */}
-      <div className="absolute bottom-0 left-0 right-0 h-12 bg-black z-10" />
+      <div className="absolute bottom-0 left-0 right-0 h-16 bg-black z-[999]" />
 
       {/* Corner frame accents */}
       <div className="absolute top-0 left-0 w-6 h-6 sm:w-8 sm:h-8 lg:w-12 lg:h-12 border-t-2 border-l-2 border-white/30 z-20" />
