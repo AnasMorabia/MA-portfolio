@@ -133,6 +133,8 @@ export default function Hero() {
           style={{ width: "100%", height: "100%", minHeight: "100vh" }}
         />
       </div>
+      {/* Cover watermark at bottom */}
+      <div className="absolute bottom-0 left-0 right-0 h-12 bg-black z-10" />
 
       {/* Corner frame accents */}
       <div className="absolute top-0 left-0 w-6 h-6 sm:w-8 sm:h-8 lg:w-12 lg:h-12 border-t-2 border-l-2 border-white/30 z-20" />
