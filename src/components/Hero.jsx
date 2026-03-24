@@ -46,13 +46,18 @@ export default function Hero() {
       [data-us-project] .unicorn-brand,
       [data-us-project] [class*="brand"],
       [data-us-project] [class*="credit"],
-      [data-us-project] [class*="watermark"] {
+      [data-us-project] [class*="watermark"],
+      [data-us-project] a,
+      [data-us-project] div:last-child:not(:first-child) a {
         display: none !important;
         visibility: hidden !important;
         opacity: 0 !important;
         position: absolute !important;
         left: -9999px !important;
         top: -9999px !important;
+        width: 0 !important;
+        height: 0 !important;
+        overflow: hidden !important;
       }
     `;
     document.head.appendChild(style);
@@ -100,7 +105,7 @@ export default function Hero() {
       className="relative min-h-screen overflow-hidden bg-black"
     >
       {/* Unicorn Studio Background — all devices */}
-      <div className="absolute inset-0 w-full h-full">
+      <div className="absolute inset-0 w-full h-full opacity-60 md:opacity-80 lg:opacity-100">
         <div
           data-us-project="OMzqyUv6M3kSnv0JeAtC"
           style={{ width: "100%", height: "100%", minHeight: "100vh" }}
@@ -108,24 +113,18 @@ export default function Hero() {
       </div>
 
       {/* Corner frame accents */}
-      <div className="absolute top-0 left-0 w-8 h-8 lg:w-12 lg:h-12 border-t-2 border-l-2 border-white/30 z-20" />
-      <div className="absolute top-0 right-0 w-8 h-8 lg:w-12 lg:h-12 border-t-2 border-r-2 border-white/30 z-20" />
-      <div
-        className="absolute left-0 w-8 h-8 lg:w-12 lg:h-12 border-b-2 border-l-2 border-white/30 z-20"
-        style={{ bottom: "5vh" }}
-      />
-      <div
-        className="absolute right-0 w-8 h-8 lg:w-12 lg:h-12 border-b-2 border-r-2 border-white/30 z-20"
-        style={{ bottom: "5vh" }}
-      />
+      <div className="absolute top-0 left-0 w-6 h-6 sm:w-8 sm:h-8 lg:w-12 lg:h-12 border-t-2 border-l-2 border-white/30 z-20" />
+      <div className="absolute top-0 right-0 w-6 h-6 sm:w-8 sm:h-8 lg:w-12 lg:h-12 border-t-2 border-r-2 border-white/30 z-20" />
+      <div className="absolute left-0 bottom-0 lg:bottom-[5vh] w-6 h-6 sm:w-8 sm:h-8 lg:w-12 lg:h-12 border-b-2 border-l-2 border-white/30 z-20" />
+      <div className="absolute right-0 bottom-0 lg:bottom-[5vh] w-6 h-6 sm:w-8 sm:h-8 lg:w-12 lg:h-12 border-b-2 border-r-2 border-white/30 z-20" />
 
       {/* Main content */}
       <div
-        className="relative z-10 flex min-h-screen items-center justify-end pt-16 lg:pt-0"
+        className="relative z-10 flex min-h-screen items-end md:items-center justify-center md:justify-end pb-24 md:pb-0 pt-16 lg:pt-0"
         style={{ marginTop: "5vh" }}
       >
         <div className="w-full md:w-2/3 lg:w-1/2 px-5 sm:px-6 lg:px-16 lg:pr-[10%]">
-          <div className="max-w-lg relative lg:ml-auto">
+          <div className="max-w-lg relative mx-auto md:mx-0 lg:ml-auto">
             {/* Top decorative line */}
             <motion.div
               initial={{ opacity: 0 }}
@@ -147,7 +146,7 @@ export default function Hero() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.4, delay: 0.1 }}
-                className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-3 lg:mb-4 leading-tight font-mono tracking-wider whitespace-nowrap lg:-ml-[5%]"
+                className="text-xl sm:text-2xl md:text-4xl lg:text-5xl font-bold text-white mb-3 lg:mb-4 leading-tight font-mono tracking-wider whitespace-nowrap text-center md:text-left lg:-ml-[5%]"
                 style={{ letterSpacing: "0.1em" }}
               >
                 {personalInfo.name.toUpperCase().split(" ").slice(0, 2).join(" ")}
@@ -159,7 +158,7 @@ export default function Hero() {
               initial={{ opacity: 0 }}
               animate={{ opacity: 0.5 }}
               transition={{ duration: 0.4, delay: 0.15 }}
-              className="text-xs font-mono tracking-[0.25em] uppercase text-white mb-4"
+              className="text-xs font-mono tracking-[0.25em] uppercase text-white mb-4 text-center md:text-left"
             >
               {personalInfo.title}
             </motion.p>
@@ -181,7 +180,7 @@ export default function Hero() {
               transition={{ duration: 0.4, delay: 0.2 }}
               className="relative"
             >
-              <p className="text-xs sm:text-sm lg:text-base text-gray-300 mb-5 lg:mb-6 leading-relaxed font-mono opacity-80">
+              <p className="text-xs sm:text-sm lg:text-base text-gray-300 mb-5 lg:mb-6 leading-relaxed font-mono opacity-80 text-center md:text-left">
                 {personalInfo.tagline}
               </p>
               <div className="hidden lg:block absolute -left-4 top-1/2 w-3 h-3 border border-white opacity-30 -translate-y-1/2">
@@ -194,7 +193,7 @@ export default function Hero() {
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.4, delay: 0.25 }}
-              className="flex flex-col lg:flex-row gap-3 lg:gap-4"
+              className="flex flex-row justify-center md:justify-start gap-3 lg:gap-4"
             >
               <a
                 href="#contact"
@@ -231,8 +230,8 @@ export default function Hero() {
 
       {/* Bottom footer bar */}
       <div
-        className="absolute left-0 right-0 z-20 border-t border-white/20 bg-black/40 backdrop-blur-sm"
-        style={{ bottom: "5vh" }}
+        className="absolute left-0 right-0 z-20 border-t border-white/20 bg-black/60 backdrop-blur-sm"
+        style={{ bottom: 0 }}
       >
         <div className="container mx-auto px-4 lg:px-8 py-2 lg:py-3 flex items-center justify-between">
           <div className="flex items-center gap-3 lg:gap-6 text-[8px] lg:text-[9px] font-mono text-white/50">
