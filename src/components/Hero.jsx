@@ -32,8 +32,10 @@ export default function Hero() {
         position: relative !important;
         overflow: hidden !important;
       }
-      [data-us-project] canvas {
-        clip-path: inset(0 0 10% 0) !important;
+      @media (min-width: 1024px) {
+        [data-us-project] canvas {
+          clip-path: inset(0 0 10% 0) !important;
+        }
       }
       [data-us-project] * {
         pointer-events: none !important;
@@ -97,16 +99,13 @@ export default function Hero() {
       id="home"
       className="relative min-h-screen overflow-hidden bg-black"
     >
-      {/* Unicorn Studio Background — desktop */}
-      <div className="absolute inset-0 w-full h-full hidden lg:block">
+      {/* Unicorn Studio Background — all devices */}
+      <div className="absolute inset-0 w-full h-full">
         <div
           data-us-project="OMzqyUv6M3kSnv0JeAtC"
           style={{ width: "100%", height: "100%", minHeight: "100vh" }}
         />
       </div>
-
-      {/* Mobile stars fallback */}
-      <div className="absolute inset-0 w-full h-full lg:hidden hero-stars" />
 
       {/* Corner frame accents */}
       <div className="absolute top-0 left-0 w-8 h-8 lg:w-12 lg:h-12 border-t-2 border-l-2 border-white/30 z-20" />
