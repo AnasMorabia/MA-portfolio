@@ -84,14 +84,36 @@ export default function Hero() {
       });
     };
 
-    // Run once on mount, then a few retries — no interval
+    // Run on mount + retries, and watch for dynamically added elements
     hideBranding();
-    const timeouts = [500, 1000, 3000, 8000].map((t) =>
+    const timeouts = [200, 500, 1000, 2000, 4000, 8000].map((t) =>
       setTimeout(hideBranding, t)
     );
 
+    const observer = new MutationObserver(hideBranding);
+    const target = document.querySelector("[data-us-project]");
+    if (target) {
+      observer.observe(target, { childList: true, subtree: true });
+    } else {
+      // Watch for the project container to appear
+      const bodyObserver = new MutationObserver(() => {
+        const el = document.querySelector("[data-us-project]");
+        if (el) {
+          observer.observe(el, { childList: true, subtree: true });
+          hideBranding();
+          bodyObserver.disconnect();
+        }
+      });
+      bodyObserver.observe(document.body, { childList: true, subtree: true });
+      timeouts.push({ disconnect: () => bodyObserver.disconnect() });
+    }
+
     return () => {
-      timeouts.forEach(clearTimeout);
+      timeouts.forEach((t) => {
+        if (t && t.disconnect) t.disconnect();
+        else clearTimeout(t);
+      });
+      observer.disconnect();
       try {
         document.head.removeChild(embedScript);
         document.head.removeChild(style);
