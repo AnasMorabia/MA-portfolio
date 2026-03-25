@@ -1,5 +1,6 @@
 import Navbar from "./components/Navbar";
 import Hero from "./components/Hero";
+import OrbitalField from "./components/OrbitalField";
 import About from "./components/About";
 import Skills from "./components/Skills";
 import Projects from "./components/Projects";
@@ -13,6 +14,7 @@ function App() {
       <Navbar />
       <main>
         <Hero />
+        <OrbitalField />
         <div className="max-w-[1000px] mx-auto px-4 sm:px-6 md:px-12 lg:px-16">
           <About />
           <Skills />
