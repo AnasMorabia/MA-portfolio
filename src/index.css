@@ -19,6 +19,12 @@ html {
   scroll-behavior: smooth;
 }
 
+@media (pointer: fine) {
+  * {
+    cursor: none !important;
+  }
+}
+
 body {
   font-family: 'Inter', system-ui, -apple-system, sans-serif;
   background-color: var(--color-dark);

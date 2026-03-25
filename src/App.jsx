@@ -7,10 +7,12 @@ import Projects from "./components/Projects";
 import Experience from "./components/Experience";
 import Contact from "./components/Contact";
 import Footer from "./components/Footer";
+import CursorFollower from "./components/CursorFollower";
 
 function App() {
   return (
     <div className="min-h-screen bg-black overflow-x-hidden">
+      <CursorFollower />
       <Navbar />
       <main>
         <Hero />
