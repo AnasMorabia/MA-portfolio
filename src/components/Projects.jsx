@@ -15,9 +15,9 @@ export default function Projects() {
     <section id="projects" className="py-28 md:py-36 px-2">
       <div ref={ref}>
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
+          initial={{ opacity: 0, y: 20 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6 }}
+          transition={{ duration: 0.8, ease: [0.25, 0.1, 0.25, 1] }}
           className="text-center mb-14"
         >
           <h2 className="text-3xl md:text-4xl font-bold text-white mb-4 font-mono tracking-wide">
@@ -34,9 +34,9 @@ export default function Projects() {
               <GridPatternCard
                 key={project.title}
                 className="hover:border-white/20 transition-all duration-300 group"
-                initial={{ opacity: 0, y: 30 }}
+                initial={{ opacity: 0, y: 20 }}
                 animate={isInView ? { opacity: 1, y: 0 } : {}}
-                transition={{ duration: 0.5, delay: 0.12 * i }}
+                transition={{ duration: 0.6, delay: 0.15 * i, ease: [0.25, 0.1, 0.25, 1] }}
               >
                 <GridPatternCardBody>
                   <div className="w-11 h-11 bg-white/5 border border-white/10 rounded-lg flex items-center justify-center mb-6 text-base font-semibold text-white/60 font-mono">
@@ -86,9 +86,9 @@ export default function Projects() {
         ) : (
           <GridPatternCard
             className="border-dashed"
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 15 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.5, delay: 0.2 }}
+            transition={{ duration: 0.6, delay: 0.2, ease: [0.25, 0.1, 0.25, 1] }}
           >
             <GridPatternCardBody className="py-16 text-center">
               <p className="text-zinc-600 text-sm font-mono">

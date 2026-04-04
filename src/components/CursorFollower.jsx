@@ -8,8 +8,9 @@ export default function CursorFollower() {
   const mouseX = useMotionValue(-100);
   const mouseY = useMotionValue(-100);
 
-  const springX = useSpring(mouseX, { stiffness: 150, damping: 15 });
-  const springY = useSpring(mouseY, { stiffness: 150, damping: 15 });
+  const springConfig = { stiffness: 120, damping: 20, mass: 0.5 };
+  const springX = useSpring(mouseX, springConfig);
+  const springY = useSpring(mouseY, springConfig);
 
   useEffect(() => {
     const isTouch = window.matchMedia("(pointer: coarse)").matches;
@@ -85,7 +86,7 @@ export default function CursorFollower() {
             ? "rgba(139, 92, 246, 0.9)"
             : "rgba(139, 92, 246, 0.6)",
         }}
-        transition={{ duration: 0.2 }}
+        transition={{ type: "spring", stiffness: 200, damping: 25 }}
       />
       {/* Center dot */}
       <motion.div
@@ -103,7 +104,7 @@ export default function CursorFollower() {
           width: dotSize,
           height: dotSize,
         }}
-        transition={{ duration: 0.15 }}
+        transition={{ type: "spring", stiffness: 300, damping: 20 }}
       />
     </>
   );

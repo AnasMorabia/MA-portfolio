@@ -10,32 +10,38 @@ export default function OrbitalField() {
 
   // Outer ring — subtle follow
   const outerX = useSpring(useTransform(mouseX, [-1, 1], [-12, 12]), {
-    stiffness: 40,
-    damping: 20,
+    stiffness: 30,
+    damping: 25,
+    mass: 1.2,
   });
   const outerY = useSpring(useTransform(mouseY, [-1, 1], [-12, 12]), {
-    stiffness: 40,
-    damping: 20,
+    stiffness: 30,
+    damping: 25,
+    mass: 1.2,
   });
 
   // Inner ring — stronger follow for parallax
   const innerX = useSpring(useTransform(mouseX, [-1, 1], [-22, 22]), {
-    stiffness: 60,
-    damping: 18,
+    stiffness: 45,
+    damping: 22,
+    mass: 0.8,
   });
   const innerY = useSpring(useTransform(mouseY, [-1, 1], [-22, 22]), {
-    stiffness: 60,
-    damping: 18,
+    stiffness: 45,
+    damping: 22,
+    mass: 0.8,
   });
 
   // Center dot — most responsive
   const centerX = useSpring(useTransform(mouseX, [-1, 1], [-30, 30]), {
-    stiffness: 80,
-    damping: 15,
+    stiffness: 60,
+    damping: 18,
+    mass: 0.5,
   });
   const centerY = useSpring(useTransform(mouseY, [-1, 1], [-30, 30]), {
-    stiffness: 80,
-    damping: 15,
+    stiffness: 60,
+    damping: 18,
+    mass: 0.5,
   });
 
   return (

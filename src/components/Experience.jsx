@@ -14,9 +14,9 @@ export default function Experience() {
     <section id="experience" className="py-28 md:py-36 px-2">
       <div className="max-w-3xl mx-auto px-4" ref={ref}>
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
+          initial={{ opacity: 0, y: 20 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6 }}
+          transition={{ duration: 0.8, ease: [0.25, 0.1, 0.25, 1] }}
           className="text-center mb-14"
         >
           <h2 className="text-3xl md:text-4xl font-bold text-white mb-4 font-mono tracking-wide">
@@ -32,9 +32,9 @@ export default function Experience() {
             <GridPatternCard
               key={i}
               className="hover:border-white/20 transition-all duration-300"
-              initial={{ opacity: 0, y: 30 }}
+              initial={{ opacity: 0, y: 20 }}
               animate={isInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.4, delay: 0.1 * i }}
+              transition={{ duration: 0.6, delay: 0.12 * i, ease: [0.25, 0.1, 0.25, 1] }}
             >
               <GridPatternCardBody className="p-4 sm:p-5 md:p-6">
                 <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between mb-5">

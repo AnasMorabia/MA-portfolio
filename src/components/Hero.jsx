@@ -173,7 +173,7 @@ export default function Hero() {
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 0.6 }}
-              transition={{ duration: 0.5 }}
+              transition={{ duration: 0.8, ease: [0.25, 0.1, 0.25, 1] }}
               className="flex items-center gap-2 mb-3"
             >
               <div className="w-8 h-px bg-white" />
@@ -187,9 +187,9 @@ export default function Hero() {
             <div className="relative">
               <div className="hidden lg:block absolute -right-3 top-0 bottom-0 w-1 hero-dither opacity-40" />
               <motion.h1
-                initial={{ opacity: 0, y: 20 }}
+                initial={{ opacity: 0, y: 15 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.4, delay: 0.1 }}
+                transition={{ duration: 0.7, delay: 0.15, ease: [0.25, 0.1, 0.25, 1] }}
                 className="text-xl sm:text-2xl md:text-4xl lg:text-5xl font-bold text-white mb-3 lg:mb-4 leading-tight font-mono tracking-wider whitespace-nowrap text-center md:text-left lg:-ml-[5%]"
                 style={{ letterSpacing: "0.1em" }}
               >
@@ -201,7 +201,7 @@ export default function Hero() {
             <motion.p
               initial={{ opacity: 0 }}
               animate={{ opacity: 0.5 }}
-              transition={{ duration: 0.4, delay: 0.15 }}
+              transition={{ duration: 0.7, delay: 0.25, ease: [0.25, 0.1, 0.25, 1] }}
               className="text-xs font-mono tracking-[0.25em] uppercase text-white mb-4 text-center md:text-left"
             >
               {personalInfo.title}
@@ -221,7 +221,7 @@ export default function Hero() {
             <motion.div
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.4, delay: 0.2 }}
+              transition={{ duration: 0.7, delay: 0.35, ease: [0.25, 0.1, 0.25, 1] }}
               className="relative"
             >
               <p className="text-xs sm:text-sm lg:text-base text-gray-300 mb-5 lg:mb-6 leading-relaxed font-mono opacity-80 text-center md:text-left">
@@ -236,7 +236,7 @@ export default function Hero() {
             <motion.div
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.4, delay: 0.25 }}
+              transition={{ duration: 0.7, delay: 0.45, ease: [0.25, 0.1, 0.25, 1] }}
               className="flex flex-row justify-center md:justify-start gap-3 lg:gap-4"
             >
               <a
@@ -259,7 +259,7 @@ export default function Hero() {
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 0.4 }}
-              transition={{ duration: 0.5, delay: 0.3 }}
+              transition={{ duration: 0.8, delay: 0.55, ease: [0.25, 0.1, 0.25, 1] }}
               className="hidden lg:flex items-center gap-2 mt-6"
             >
               <span className="text-white text-[9px] font-mono">&infin;</span>
