@@ -66,6 +66,7 @@ export default function Projects() {
                       href={project.github}
                       target="_blank"
                       rel="noreferrer"
+                      aria-label={`View ${project.title} source code on GitHub`}
                       className="flex items-center gap-2 text-zinc-500 hover:text-zinc-300 text-sm transition-colors font-mono"
                     >
                       <FiGithub /> Code
@@ -74,6 +75,7 @@ export default function Projects() {
                       href={project.live}
                       target="_blank"
                       rel="noreferrer"
+                      aria-label={`View ${project.title} live demo`}
                       className="flex items-center gap-2 text-zinc-500 hover:text-zinc-300 text-sm transition-colors font-mono"
                     >
                       <FiExternalLink /> Live Demo

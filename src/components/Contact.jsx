@@ -15,15 +15,32 @@ export default function Contact() {
     email: "",
     message: "",
   });
+  const [errors, setErrors] = useState({});
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
+    if (errors[e.target.name]) {
+      setErrors({ ...errors, [e.target.name]: "" });
+    }
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    const newErrors = {};
+    if (!formData.name.trim()) newErrors.name = "Name is required";
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email))
+      newErrors.email = "Valid email is required";
+    if (!formData.message.trim()) newErrors.message = "Message is required";
+
+    if (Object.keys(newErrors).length) {
+      setErrors(newErrors);
+      return;
+    }
+
     const mailtoLink = `mailto:${personalInfo.email}?subject=Message from ${encodeURIComponent(formData.name)}&body=${encodeURIComponent(formData.message)}%0A%0AFrom: ${encodeURIComponent(formData.email)}`;
     window.location.href = mailtoLink;
+    setFormData({ name: "", email: "", message: "" });
+    setErrors({});
   };
 
   return (
@@ -79,44 +96,53 @@ export default function Contact() {
             <form onSubmit={handleSubmit} className="space-y-5">
               <div className="grid sm:grid-cols-2 gap-5">
                 <div>
-                  <label className="text-zinc-400 text-sm mb-2 block font-mono">
+                  <label htmlFor="contact-name" className="text-zinc-400 text-sm mb-2 block font-mono">
                     Name
                   </label>
                   <input
+                    id="contact-name"
                     type="text"
                     name="name"
                     value={formData.name}
                     onChange={handleChange}
                     required
-                    className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-md text-white text-sm placeholder-zinc-600 focus:outline-none focus:border-white/25 transition-colors font-mono"
+                    aria-required="true"
+                    className={`w-full px-4 py-3 bg-white/5 border rounded-md text-white text-sm placeholder-zinc-600 focus:outline-none focus:border-white/25 transition-colors font-mono ${errors.name ? "border-red-400/60" : "border-white/10"}`}
                   />
+                  {errors.name && <p className="text-red-400 text-xs mt-1 font-mono">{errors.name}</p>}
                 </div>
                 <div>
-                  <label className="text-zinc-400 text-sm mb-2 block font-mono">
+                  <label htmlFor="contact-email" className="text-zinc-400 text-sm mb-2 block font-mono">
                     Email
                   </label>
                   <input
+                    id="contact-email"
                     type="email"
                     name="email"
                     value={formData.email}
                     onChange={handleChange}
                     required
-                    className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-md text-white text-sm placeholder-zinc-600 focus:outline-none focus:border-white/25 transition-colors font-mono"
+                    aria-required="true"
+                    className={`w-full px-4 py-3 bg-white/5 border rounded-md text-white text-sm placeholder-zinc-600 focus:outline-none focus:border-white/25 transition-colors font-mono ${errors.email ? "border-red-400/60" : "border-white/10"}`}
                   />
+                  {errors.email && <p className="text-red-400 text-xs mt-1 font-mono">{errors.email}</p>}
                 </div>
               </div>
               <div>
-                <label className="text-zinc-400 text-sm mb-2 block font-mono">
+                <label htmlFor="contact-message" className="text-zinc-400 text-sm mb-2 block font-mono">
                   Message
                 </label>
                 <textarea
+                  id="contact-message"
                   name="message"
                   rows={5}
                   value={formData.message}
                   onChange={handleChange}
                   required
-                  className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-md text-white text-sm placeholder-zinc-600 focus:outline-none focus:border-white/25 transition-colors resize-none font-mono"
+                  aria-required="true"
+                  className={`w-full px-4 py-3 bg-white/5 border rounded-md text-white text-sm placeholder-zinc-600 focus:outline-none focus:border-white/25 transition-colors resize-none font-mono ${errors.message ? "border-red-400/60" : "border-white/10"}`}
                 />
+                {errors.message && <p className="text-red-400 text-xs mt-1 font-mono">{errors.message}</p>}
               </div>
               <button
                 type="submit"

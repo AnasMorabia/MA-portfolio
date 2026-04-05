@@ -5,7 +5,7 @@ export const personalInfo = {
   description:
     "Frontend-focused software engineer who believes great software starts with understanding people. I combine a strong eye for detail with empathy-driven design to build interfaces that feel natural and effortless. When I'm not coding, I'm thinking about how to make technology more human.",
   email: "morabiaanas@gmail.com",
-  github: "#", // TODO: add GitHub URL
+  github: "https://github.com/AnasMorabia",
   linkedin:
     "https://www.linkedin.com/in/anas-morabia-18535438b",
   resume: "/resume.pdf",

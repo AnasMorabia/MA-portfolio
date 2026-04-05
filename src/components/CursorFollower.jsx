@@ -2,7 +2,9 @@ import { useEffect, useState } from "react";
 import { motion, useMotionValue, useSpring } from "framer-motion";
 
 export default function CursorFollower() {
-  const [isMobile, setIsMobile] = useState(true);
+  const [isMobile] = useState(
+    () => typeof window !== "undefined" && window.matchMedia("(pointer: coarse)").matches
+  );
   const [hovered, setHovered] = useState(false);
 
   const mouseX = useMotionValue(-100);
@@ -13,9 +15,7 @@ export default function CursorFollower() {
   const springY = useSpring(mouseY, springConfig);
 
   useEffect(() => {
-    const isTouch = window.matchMedia("(pointer: coarse)").matches;
-    setIsMobile(isTouch);
-    if (isTouch) return;
+    if (isMobile) return;
 
     const handleMove = (e) => {
       mouseX.set(e.clientX);
@@ -27,7 +27,6 @@ export default function CursorFollower() {
 
     window.addEventListener("mousemove", handleMove, { passive: true });
 
-    // Watch for interactive elements
     const addListeners = () => {
       const targets = document.querySelectorAll(
         'a, button, [role="button"], input, textarea, select, [data-cursor-hover]'
@@ -41,17 +40,21 @@ export default function CursorFollower() {
 
     let targets = addListeners();
 
-    // Re-attach on DOM changes (for dynamically added elements)
+    let debounceTimer;
     const observer = new MutationObserver(() => {
-      targets.forEach((el) => {
-        el.removeEventListener("mouseenter", handleEnter);
-        el.removeEventListener("mouseleave", handleLeave);
-      });
-      targets = addListeners();
+      clearTimeout(debounceTimer);
+      debounceTimer = setTimeout(() => {
+        targets.forEach((el) => {
+          el.removeEventListener("mouseenter", handleEnter);
+          el.removeEventListener("mouseleave", handleLeave);
+        });
+        targets = addListeners();
+      }, 300);
     });
     observer.observe(document.body, { childList: true, subtree: true });
 
     return () => {
+      clearTimeout(debounceTimer);
       window.removeEventListener("mousemove", handleMove);
       targets.forEach((el) => {
         el.removeEventListener("mouseenter", handleEnter);
@@ -59,7 +62,7 @@ export default function CursorFollower() {
       });
       observer.disconnect();
     };
-  }, [mouseX, mouseY]);
+  }, [isMobile, mouseX, mouseY]);
 
   if (isMobile) return null;
 

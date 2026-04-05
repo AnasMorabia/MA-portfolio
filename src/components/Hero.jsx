@@ -1,12 +1,10 @@
-import { useEffect, useMemo } from "react";
+import { useEffect } from "react";
 import { motion } from "framer-motion";
 import { personalInfo } from "../data/content";
 
+const BAR_HEIGHTS = Array.from({ length: 8 }, () => Math.random() * 12 + 4);
+
 export default function Hero() {
-  const barHeights = useMemo(
-    () => Array.from({ length: 8 }, () => Math.random() * 12 + 4),
-    []
-  );
 
   useEffect(() => {
     const embedScript = document.createElement("script");
@@ -68,7 +66,6 @@ export default function Hero() {
     document.head.appendChild(style);
 
     const hideBranding = () => {
-      // Search inside project containers
       const containers = document.querySelectorAll("[data-us-project]");
       containers.forEach((container) => {
         container.querySelectorAll("*").forEach((el) => {
@@ -82,62 +79,43 @@ export default function Hero() {
             title.includes("unicorn") ||
             href.includes("unicorn.studio")
           ) {
-            try { el.remove(); } catch (_) {}
+            el?.remove();
           }
         });
       });
-      // Also search globally for any unicorn links/watermarks
       document.querySelectorAll('a[href*="unicorn"], a[href*="unicornstudio"]').forEach((el) => {
-        try { el.remove(); } catch (_) {}
+        el?.remove();
       });
-      // Check siblings after the project div
       containers.forEach((container) => {
         let sibling = container.nextElementSibling;
         while (sibling) {
           const next = sibling.nextElementSibling;
           const text = (sibling.textContent || "").toLowerCase();
           if (text.includes("unicorn") || text.includes("made with")) {
-            try { sibling.remove(); } catch (_) {}
+            sibling?.remove();
           }
           sibling = next;
         }
       });
     };
 
-    // Run on mount + retries, and watch for dynamically added elements
+    // Run on mount, then watch for dynamically added elements
     hideBranding();
-    const timeouts = [200, 500, 1000, 2000, 4000, 8000].map((t) =>
-      setTimeout(hideBranding, t)
-    );
-
-    const observer = new MutationObserver(hideBranding);
-    const target = document.querySelector("[data-us-project]");
-    if (target) {
-      observer.observe(target, { childList: true, subtree: true });
-    } else {
-      // Watch for the project container to appear
-      const bodyObserver = new MutationObserver(() => {
-        const el = document.querySelector("[data-us-project]");
-        if (el) {
-          observer.observe(el, { childList: true, subtree: true });
-          hideBranding();
-          bodyObserver.disconnect();
-        }
-      });
-      bodyObserver.observe(document.body, { childList: true, subtree: true });
-      timeouts.push({ disconnect: () => bodyObserver.disconnect() });
-    }
+    let debounce;
+    const observer = new MutationObserver(() => {
+      clearTimeout(debounce);
+      debounce = setTimeout(hideBranding, 200);
+    });
+    observer.observe(document.getElementById("home") || document.body, {
+      childList: true,
+      subtree: true,
+    });
 
     return () => {
-      timeouts.forEach((t) => {
-        if (t && t.disconnect) t.disconnect();
-        else clearTimeout(t);
-      });
+      clearTimeout(debounce);
       observer.disconnect();
-      try {
-        document.head.removeChild(embedScript);
-        document.head.removeChild(style);
-      } catch (_) {}
+      embedScript?.remove();
+      style?.remove();
     };
   }, []);
 
@@ -286,7 +264,7 @@ export default function Hero() {
                 <div
                   key={i}
                   className="w-1 bg-white/30"
-                  style={{ height: `${barHeights[i]}px` }}
+                  style={{ height: `${BAR_HEIGHTS[i]}px` }}
                 />
               ))}
             </div>

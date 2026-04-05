@@ -1,16 +1,16 @@
-import { useEffect, useRef } from "react";
+import { useEffect } from "react";
 import { useMotionValue } from "framer-motion";
+
+const isMobileDevice =
+  typeof window !== "undefined" &&
+  window.matchMedia("(pointer: coarse)").matches;
 
 export default function useMousePosition(containerRef) {
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
-  const isMobile = useRef(
-    typeof window !== "undefined" &&
-      window.matchMedia("(pointer: coarse)").matches
-  );
 
   useEffect(() => {
-    if (isMobile.current) return;
+    if (isMobileDevice) return;
 
     const handleMove = (e) => {
       const el = containerRef.current;
@@ -26,5 +26,5 @@ export default function useMousePosition(containerRef) {
     return () => window.removeEventListener("mousemove", handleMove);
   }, [containerRef, mouseX, mouseY]);
 
-  return { mouseX, mouseY, isMobile: isMobile.current };
+  return { mouseX, mouseY, isMobile: isMobileDevice };
 }
